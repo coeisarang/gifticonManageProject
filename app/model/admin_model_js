@@ -1,0 +1,20 @@
+const user_db = require('./db/user_db')
+
+module.exports = {
+
+    async m_CreateBook(gift_name, gift_group, gift_number, gift_list, gift_use_list) {
+        let query = 'insert into book set gift_name = ? , gift_group = ? , gift_number = ?, gift_list = ?, gift_use_list =?';
+        let data = [gift_name, gift_group, gift_number, gift_list, gift_use_list];
+        return await user_db.ReadDB(query,data);
+    },
+
+    async m_CreateBookList() {
+        let query = 'select gift_name, gift_group, gift_number,'
+        'DATE_FORMAT(gift_list , "%Y-%m-%d %H:%i:%s") as gift_list,'
+        'DATE_FORMAT(gift_use_list , "%Y-%m-%d %H:%i:%s") as gift_use_list from book order by book_id desc';
+
+        return await user_db.ReadDB(query,"");
+    },
+
+}
+
